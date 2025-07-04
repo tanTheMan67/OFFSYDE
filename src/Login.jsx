@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = ()=>{
   const [email,setEmail]= useState("");
   const[password,setPassword]=useState("");
+  const[error,setError]=useState("");
   const dispatch = useDispatch();
   const selector = useSelector(store=>store.user);
   const navigate = useNavigate();
@@ -14,11 +15,11 @@ const Login = ()=>{
     try{
       const data = await axios.post("http://localhost:3000/login",{email,password},{ withCredentials: true });
       console.log(data);
-      console.log("issue");
       dispatch(addUser(data?.data));
       navigate("/profile");
     }catch(err){
-      console.log(err.response?.data || err.message || err);
+      setError(err.response.status +"->"+err.response.data)
+      console.log();
     }    
   };
     return(
@@ -39,6 +40,7 @@ const Login = ()=>{
   }}/>
 </fieldset>
     </div>
+    <p className="text-red-600 font-bold">{error}</p>
     <div className="card-actions justify-center">
       <button className="btn btn-primary mt-3 p-5" onClick={handleClick}>Login</button>
     </div>
