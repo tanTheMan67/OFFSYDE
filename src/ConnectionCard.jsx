@@ -1,4 +1,4 @@
-const UserCard = ({firstname,lastname,skills,photourl,gender,age})=>{
+const Connectioncard = ({firstname,lastname,skills,photourl,gender,age})=>{
     return(
         <div className="card bg-cyan-400 w-72 m-4 shadow-red-600 shadow-lg flex justify-center align-middle uppercase">
         <figure >
@@ -12,11 +12,10 @@ const UserCard = ({firstname,lastname,skills,photourl,gender,age})=>{
           <p className="font-bold">{gender && gender.length>0?gender:""}</p>
           <p className="font-bold">{age && age.length>0?age:""}</p>
           <div className="card-actions">
-<button className="btn btn-soft btn-secondary">Interested</button>
-<button className="btn btn-soft btn-success">Ignore</button>
+<button className="btn btn-soft btn-secondary">Connected</button>
           </div>
         </div>
       </div>
     )
 }
-export default UserCard;
+export default Connectioncard;

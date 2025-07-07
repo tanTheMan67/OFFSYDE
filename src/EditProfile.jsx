@@ -9,6 +9,7 @@ const EditProfile = () => {
     const [photourl, setPhotourl] = useState("");
     const [gender, setGender] = useState("");
     const curruser = useSelector(store => store.user);
+    const [alert,setAlert]=useState(false);
 
     const handleEdit = async () => {
         try {
@@ -24,19 +25,31 @@ const EditProfile = () => {
                     withCredentials: true,
                 }
             );
-            alert("Profile updated successfully!");
+            setAlert(true);
+            setTimeout(()=>{
+              setAlert(false);
+            },2000);
+            
         } catch (err) {
             console.error("Error:", {
                 message: err.message,
                 response: err.response?.data,
                 request: err.request
             });
-            alert("Error updating profile. See console for details.");
+          
         }
     };
 
     return (
-        <div className="flex justify-center">
+      <>
+        { alert && <div role="alert" className="alert alert-success mt-4 mx-auto w-3/4 ">
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-2 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>Your changes have been Saved successfully!</span>
+</div>
+}
+        <div className="flex justify-center">   
             <div className="card card-border bg-base-300 w-96 flex justify- mt-28">
                 <div className="card-body">
                     <h2 className="card-title justify-center mb-5 font-bold">Edit Profile</h2>
@@ -91,11 +104,13 @@ const EditProfile = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+              </div>
             <div className="flex justify-center mt-40 p-2 h-96 items-center">
                 {curruser && <UserCard {...curruser} />}
             </div>
-        </div>
+            </div>
+            </>
+
     );
 };
 
