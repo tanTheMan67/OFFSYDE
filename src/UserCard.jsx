@@ -1,4 +1,15 @@
-const UserCard = ({firstname,lastname,skills,photourl,gender,age})=>{
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeUserFromFeed } from "./utils/FeedSlice";
+
+
+const UserCard = ({firstname,lastname,skills,photourl,gender,age,_id})=>{
+  const dispatch = useDispatch();
+  const handleClick = async(status,_id)=>{
+    const res = await axios.post("http://localhost:3000/connectionRequest/send/"+status+"/"+_id,{},{withCredentials:true});
+  console.log(res);
+  dispatch(removeUserFromFeed(_id));
+  }
     return(
         <div className="card bg-cyan-400 w-72 m-4 shadow-red-600 shadow-lg flex justify-center align-middle uppercase">
         <figure >
@@ -12,8 +23,8 @@ const UserCard = ({firstname,lastname,skills,photourl,gender,age})=>{
           <p className="font-bold">{gender && gender.length>0?gender:""}</p>
           <p className="font-bold">{age && age.length>0?age:""}</p>
           <div className="card-actions">
-<button className="btn btn-soft btn-secondary">Interested</button>
-<button className="btn btn-soft btn-success">Ignore</button>
+<button className="btn btn-soft btn-secondary" onClick={()=>handleClick("interested",_id)}>Interested</button>
+<button className="btn btn-soft btn-success" onClick={()=>handleClick("ignored",_id)}>Ignore</button>
           </div>
         </div>
       </div>
