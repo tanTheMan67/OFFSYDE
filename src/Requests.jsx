@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests } from "./utils/RequestSlice";
 import RequestCard from "./RequestCard";
+import Shimmer from "./utils/Shimmer";
 
 const Requests = ()=>{
     const requests=useSelector(store=>store.requests);
@@ -14,9 +15,10 @@ const Requests = ()=>{
     useEffect(()=>{
         handleRequests()
     },[]);
-    if(!requests)return;
+    if(!requests)return <Shimmer/>;
     if(requests.length===0){
-        return <h1 className="flex mt-2 font-bold justify-center">NO PENDING REQUESTS</h1>
+        return (<><h1 className="flex mt-2 font-bold justify-center">NO PENDING REQUESTS</h1>
+        <Shimmer/></>)
     }
     return(
         <div className="flex gap-4">

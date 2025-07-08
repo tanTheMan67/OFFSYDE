@@ -6,9 +6,16 @@ import { removeUserFromFeed } from "./utils/FeedSlice";
 const UserCard = ({firstname,lastname,skills,photourl,gender,age,_id})=>{
   const dispatch = useDispatch();
   const handleClick = async(status,_id)=>{
+    try{
     const res = await axios.post("http://localhost:3000/connectionRequest/send/"+status+"/"+_id,{},{withCredentials:true});
   console.log(res);
   dispatch(removeUserFromFeed(_id));
+    }catch(err){
+      if(err.message==="Request failed with status code 400" && err.response?.status==400){
+        dispatch(removeUserFromFeed(_id));
+      }
+      
+    }
   }
     return(
         <div className="card bg-cyan-400 w-72 m-4 shadow-red-600 shadow-lg flex justify-center align-middle uppercase">

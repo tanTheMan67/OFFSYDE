@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserCard from "./userCard";
 import { addConnection } from "./utils/connectionSlice";
 import Connectioncard from "./ConnectionCard";
+import Shimmer from "./utils/Shimmer";
 
 const Connection=()=>{
     const dispatch=useDispatch();
@@ -17,6 +18,7 @@ const Connection=()=>{
     useEffect(()=>{
      handleConnections();
     },[])
+    if(!connect)return <Shimmer/>
     return(<>
         <div className="flex justify-center mt-6">
             <h2 className="font-extrabold">My Connections</h2>

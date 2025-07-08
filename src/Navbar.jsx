@@ -7,6 +7,7 @@ const Navbar = ()=>{
   const user = useSelector(store=>store.user);
   const dispatch = useDispatch();
    const navigate = useNavigate();
+   const newRequests = useSelector(store=>store.requests);
   const handleLogout = async()=>{
     try{
    dispatch(removeUser());
@@ -38,11 +39,12 @@ console.log(err);
         <li>
           <Link to="/profile" className="justify-between">
              My Profile
-            <span className="badge">New</span>
           </Link>
         </li>
         <li><Link to="/connections">My Connections</Link></li>
-        <li><Link to="/requests">Requests</Link></li>
+        <li><Link to="/requests">Requests
+        <span className="badge bg-orange-600">{newRequests && `${newRequests.length + " New"}`}</span>
+        </Link></li>
         <li><a onClick={handleLogout}>Logout</a></li>
       </ul>
     </div>
