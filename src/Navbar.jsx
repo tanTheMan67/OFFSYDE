@@ -43,7 +43,7 @@ console.log(err);
         </li>
         <li><Link to="/connections">My Connections</Link></li>
         <li><Link to="/requests">Requests
-        <span className="badge bg-orange-600">{newRequests && `${newRequests.length + " New"}`}</span>
+        <span className="badge bg-orange-600">{newRequests ? `${newRequests.length + " New"}`: "Tap to see"}</span>
         </Link></li>
         <li><a onClick={handleLogout}>Logout</a></li>
       </ul>
